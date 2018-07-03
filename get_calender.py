@@ -3,6 +3,7 @@
 
 import requests
 import time
+from pathlib import Path
 
 def getMode(mode='s'):
     if mode.lower() == 'c':
@@ -37,6 +38,7 @@ def get_week_date(mode='s', **kward):
     from datetime import datetime as dt, timedelta
 
     settings = getMode(mode)    
+    initFolder(settings['dir'])
 
     params = dict()
     params['order'] = kward.get('order', 1)
@@ -89,6 +91,9 @@ def get_week_date(mode='s', **kward):
         
         print()
         time.sleep(3)
+
+def initFolder(dirpath):
+    Path(dirpath).mkdir(exist_ok=True)
 
 if __name__== '__main__':
     mode = input('C: connpass, S:Colab -> ')
