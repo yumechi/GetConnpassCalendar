@@ -26,11 +26,11 @@ def getMode(mode='s'):
 
 
 template = """
-勉強会タイトル {title}
-場所 {place}
-説明 {description}
-時間 {started_at} - {ended_at}
-url {event_url}
+<p>勉強会タイトル {title}</p>
+<p>場所 {place}</p>
+<p>説明 {description}</p>
+<p>時間 {started_at} - {ended_at}</p>
+<p>url {event_url}</p>
 """
 
 
@@ -58,7 +58,8 @@ def get_week_date(mode='s', **kward):
             print('start_dateはstring, datetimeのどちらかでお願いします。')
             raise TypeError
     
-    print_seperetor = '####################################################'
+    print_seperetor = '###################################################'
+    response_list = [] 
     for i in range(7):
         date_delta = timedelta(days=i)
         d = start_date + date_delta
@@ -88,9 +89,11 @@ def get_week_date(mode='s', **kward):
         
         with open(settings['dir'] + params['ymd'] + settings['etc'] + '.txt', 'w') as f:
             f.write('\n'.join(stack))
+            response_list.append('\n'.join(stack))
         
         print()
-        time.sleep(3)
+        time.sleep(1)
+    return '\n'.join(response_list)
 
 def initFolder(dirpath):
     Path(dirpath).mkdir(exist_ok=True)
